@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using controlRecipes.Models;
 
 namespace controlRecipes.Controllers
 {
@@ -10,18 +11,26 @@ namespace controlRecipes.Controllers
         [HttpGet]
         public ActionResult GetRecipes([FromQuery]int count)
         {
-            string[] recipes = { "Butter Chicken", "Manto", "Qabuli Palaw" };
+            Recipe[] recipes = {
+                new() {Title = "Butter Chicken"},
+                new() {Title = "Manto"},
+                new() {Title = "Qabuli Palaw"}
+            };
 
-            if (recipes.Any())
-                return NotFound();
             return Ok(recipes.Take(count));
+
         }
 
         [HttpPost]
 
-        public ActionResult CreateNewRecipes()
+        public ActionResult CreateNewRecipes([FromBody] Recipe newRecipe)
         {
-            
+                bool badThingsHappened = false;
+                if(badThingsHappened)
+            {
+                return BadRequest();
+            }
+            return Created("", newRecipe);
         }
 
         [HttpDelete]
