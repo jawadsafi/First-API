@@ -8,10 +8,31 @@ namespace controlRecipes.Controllers
     public class RecipesController : ControllerBase
     {
         [HttpGet]
-        public string[] GetDishes()
+        public ActionResult GetRecipes([FromQuery]int count)
         {
-            string[] dishes = { "Oxtail", "CurryChicken", "Dumplings" };
-            return dishes;
+            string[] recipes = { "Butter Chicken", "Manto", "Qabuli Palaw" };
+
+            if (recipes.Any())
+                return NotFound();
+            return Ok(recipes.Take(count));
         }
+
+        [HttpPost]
+
+        public ActionResult CreateNewRecipes()
+        {
+            
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteRecipes()
+        {
+            bool badThingsHappened = false;
+
+            if (badThingsHappened)
+                return BadRequest();
+            return NoContent(); 
+        }
+        
     }
 }
